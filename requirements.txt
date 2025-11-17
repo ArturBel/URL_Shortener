@@ -6,3 +6,4 @@ psycopg2-binary
 validators
 Flask-Limiter
 redis
+apscheduler

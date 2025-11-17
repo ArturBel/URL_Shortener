@@ -5,6 +5,7 @@ from api.config import HOST, PORT
 import random
 import string
 import validators
+from datetime import datetime
 
 
 shorten_bp = Blueprint('shortener', __name__, template_folder='templates', static_folder='static')
@@ -54,8 +55,9 @@ def short_redirect(short_url: str):
     # finding url in the database, and raising 404 status error if it does not exist
     url = Urls.query.filter_by(short_url=short_url).first_or_404()
 
-    # updating count
+    # updating count and time of last access
     url.count += 1
+    url.last_access = datetime.now()
     db.session.commit()
 
     # redirecting user to original url
