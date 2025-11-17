@@ -6,3 +6,4 @@ class Urls(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     original_url = db.Column(db.Text, nullable=False)
     short_url = db.Column(db.Text, nullable=False, unique=True)
+    count = db.Column(db.Integer, nullable=False, default=0)

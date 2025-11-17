@@ -51,5 +51,12 @@ def index():
 # redirect page
 @redirecter.route('/<short_url>', methods=['GET'])
 def short_redirect(short_url: str):
+    # finding url in the database, and raising 404 status error if it does not exist
     url = Urls.query.filter_by(short_url=short_url).first_or_404()
+
+    # updating count
+    url.count += 1
+    db.session.commit()
+
+    # redirecting user to original url
     return redirect(f'{url.original_url}')
